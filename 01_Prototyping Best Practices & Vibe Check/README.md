@@ -38,14 +38,29 @@ Please evaluate your system on the following questions:
 
 1. Explain the concept of object-oriented programming in simple terms to a complete beginner. 
     - Aspect Tested:
+        - **structure of the answer**: It's not familiar if the explanation should be for a complete beginner in programming in general or in object-oriented programming, so the model assumed that its to object-oriented programming beginner and started from there. So, maybe some more intro is missing of where and when the OOP comes into play. It has intro, it has main part, summary and it offers next steps with examples, so that is fine. The problem is that current app doesn't keep track of communication as a chat, or conversation, so if you would like to continue with questions or examples, you would lose the previous Q/A from the UI and that is one bad thing.
+        - **complexity of the answer**: the complexity is simple enough. The answer is not going too deep into the topic. The directive given by default to the app to answer like "C-3PO or another droid" (to match the Star Wars app UI theme) is making the answer focus on Star Wars topic, which can be maybe a bit confusing o some at the beginning. Maybe better way to explain it would be with real life every day terms, like animals or shapes for example which is the typical way to explain it in papers on the topic.
+        - **correctness of the answer**: answer is correct, no wrong statements.
+        - **formatting of output**: formatting is missing, you can see there is attempt of bolding but its not recognized by FE, because its not returned in correct formatting. Sections are separated in paragraphs (new line). Question at the end could be different marked from the answer, maybe in different color.
+
 2. Read the following paragraph and provide a concise summary of the key points…
     - Aspect Tested:
+        - **quality of summary**: it extracted key points of every important point mentioned in paragraph, so summary is good.
+        - **format of output**: formatting is good in general, only formatting in app is not applied. Maybe some icons could be added next to the points that it represents for better representation.
 3. Write a short, imaginative story (100–150 words) about a robot finding friendship in an unexpected place.
     - Aspect Tested:
+        - **correctness of a task**: we got our story that contains 130 words which fits the requirement. It's imaginative. It has the story flow, intro, main story and happy ending. So I would say it did a good job.
+        - **Output formatting**: the sections are split by new paragraphs, so I would say that formatting is correct.
 4. If a store sells apples in packs of 4 and oranges in packs of 3, how many packs of each do I need to buy to get exactly 12 apples and 9 oranges?
     - Aspect Tested:
+        - **correctness of answer**: provided answer is correct.
+        - **complexity of answer**: answer might be too complex, since the answer contains all steps and question is to provide answer only and not process of thinking. The task could have been replated to making shopping list and model assumed that it's mathematical problem and provided all steps where one needs to read whole output to find his answer at the end. Improvement could be if we added developer instructions which doesn't provide steps if not asked for, but gives answer and offers to list how it came to the solution.
+        - **formatting of output**: Formatting is fine, each step in new line. Improvement in formatting current answer could be if the final answer was somehow marked differently then the rest of the text with different color, setting it to bold, setting some icon next to it or similar so it stands out from the rest of the output text.
 5. Rewrite the following paragraph in a professional, formal tone…
     - Aspect Tested:
+        - output quality: tone is professional, keeping the point said in more professional way that expresses observations rather then puts a blame on someone.
+        - formatting: formatting is good if this is a form of an email or message to send to someone, let's say
+
 
 This "vibe check" now serves as a baseline, of sorts, to help understand what holes your application has.
 
@@ -59,6 +74,8 @@ This "vibe check" now serves as a baseline, of sorts, to help understand what ho
 
 What are some limitations of vibe checking as an evaluation tool?
 ##### ✅ Answer:
+- you cannot cover all of the types of requests that can happen so it is limited to the imagination, creativity and knowledge of the one who performs checks.
+- the results evaluation is subjective to the one who performs it, so something that makes sense for one maybe doesn't for the others.
 
 ### 🚧 Advanced Build (OPTIONAL):
 
@@ -68,14 +85,17 @@ Please make adjustments to your application that you believe will improve the vi
 
 #### 🏗️ Activity #1
 ##### Adjustments Made:
-- _describe adjustment(s) here_
+1. with vibe codding changed UI so that it's "chat like", where you can keep track of conversation and answers in case you need to ask additional questions
+2. with vibe codding changed UI so you first have to enter your api key to start chatting, then you go to chat screen
+3. by extending developer role text on backend, improved formatting of the output texts adding styling like bold, italic, bullet points, icons etc. However I am not completly sure that this is the best solution to ask model to return html since its pumping up the payload size.
+4. by extending developer role text on backend, for math questions I the directions to always give answer to the question and ask it should provide the steps how he came to solution.
 
 ##### Results:
-1. _Comment here how the change(s) impacted the vibe check of your system_
-2. 
-3. 
-4. 
-5.
+1. Better formatting. Better visibility of text.
+2. Better formatting. Better visibility of text.
+3. Better formatting. Better visibility of text.
+4. Complexity is now simplier, gives answer right away, rather then explaining steps. Better formatting. Better visibility of text.
+5. Better formatting. Better visibility of text.
 
 
 ## Submitting Your Homework
