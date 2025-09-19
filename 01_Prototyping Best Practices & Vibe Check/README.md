@@ -91,7 +91,7 @@ Please make adjustments to your application that you believe will improve the vi
 4. by extending developer role text on backend, for math questions I the directions to always give answer to the question and ask it should provide the steps how he came to solution.
 
 ##### Results:
-1. Better formatting. Better visibility of text.
+1. Better formatting. Better visibility of text. "Chat like" UI made easier to keep track of conversation if additional questions were asked. 
 2. Better formatting. Better visibility of text.
 3. Better formatting. Better visibility of text.
 4. Complexity is now simplier, gives answer right away, rather then explaining steps. Better formatting. Better visibility of text.
