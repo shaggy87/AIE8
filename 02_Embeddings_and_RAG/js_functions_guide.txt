@@ -1,0 +1,159 @@
+JavaScript Functions - Complete Guide
+
+Function Basics
+A function in JavaScript is a block of code designed to perform a particular task. Functions are executed when they are called or invoked.
+
+Function Declaration
+The most common way to define a function is using the function declaration syntax:
+
+function functionName(parameters) {
+    // code to be executed
+    return value; // optional
+}
+
+Example:
+function calculateArea(length, width) {
+    return length * width;
+}
+
+Function Expression
+Functions can also be defined as expressions and stored in variables:
+
+const myFunction = function(x, y) {
+    return x + y;
+};
+
+Arrow Functions (ES6)
+Arrow functions provide a more concise way to write function expressions:
+
+const add = (a, b) => a + b;
+const square = x => x * x;
+const greet = () => "Hello World!";
+
+Function Parameters and Arguments
+Parameters are the names listed in the function definition.
+Arguments are the real values passed to the function when it is invoked.
+
+function introduce(name, age = 25) {  // age has default value
+    return `My name is ${name} and I am ${age} years old.`;
+}
+
+Rest Parameters
+Use the rest parameter to accept any number of arguments:
+
+function sum(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0);
+}
+
+Scope and Closures
+Functions have access to variables in their outer scope. This creates closures:
+
+function outerFunction(x) {
+    function innerFunction(y) {
+        return x + y; // inner function has access to x
+    }
+    return innerFunction;
+}
+
+const addFive = outerFunction(5);
+console.log(addFive(3)); // 8
+
+Higher-Order Functions
+Functions that operate on other functions, either by taking them as arguments or returning them:
+
+function applyOperation(arr, operation) {
+    return arr.map(operation);
+}
+
+const numbers = [1, 2, 3, 4, 5];
+const doubled = applyOperation(numbers, x => x * 2);
+
+Callback Functions
+A callback is a function passed as an argument to another function:
+
+function processData(data, callback) {
+    const processed = data.toUpperCase();
+    callback(processed);
+}
+
+processData("hello", function(result) {
+    console.log(result); // "HELLO"
+});
+
+Function Methods: call, apply, bind
+These methods allow you to control the 'this' context:
+
+const person = {
+    name: "John",
+    greet: function() {
+        return `Hello, I'm ${this.name}`;
+    }
+};
+
+const anotherPerson = { name: "Jane" };
+console.log(person.greet.call(anotherPerson)); // "Hello, I'm Jane"
+
+Immediately Invoked Function Expressions (IIFE)
+Functions that run as soon as they are defined:
+
+(function() {
+    console.log("This runs immediately!");
+})();
+
+Recursive Functions
+Functions that call themselves:
+
+function factorial(n) {
+    if (n <= 1) return 1;
+    return n * factorial(n - 1);
+}
+
+Pure Functions
+Functions that always return the same result for the same arguments and have no side effects:
+
+function multiply(a, b) {
+    return a * b; // Pure function
+}
+
+Function Hoisting
+Function declarations are hoisted to the top of their scope:
+
+console.log(sayHello()); // Works due to hoisting
+
+function sayHello() {
+    return "Hello!";
+}
+
+Best Practices
+1. Use descriptive function names
+2. Keep functions small and focused (single responsibility)
+3. Use arrow functions for short, simple operations
+4. Prefer function expressions over declarations in most cases
+5. Use default parameters instead of checking for undefined
+6. Avoid deeply nested functions
+7. Use pure functions when possible
+
+Common Function Patterns
+1. Factory Functions - Create and return objects
+2. Constructor Functions - Create instances with 'new'
+3. Module Pattern - Create private scope
+4. Decorator Pattern - Enhance function behavior
+
+Performance Considerations
+- Avoid creating functions inside loops
+- Use function declarations for better performance in some engines
+- Consider memoization for expensive computations
+- Be aware of closure memory usage
+
+Error Handling in Functions
+Always handle potential errors gracefully:
+
+function safeDivide(a, b) {
+    try {
+        if (b === 0) throw new Error("Division by zero");
+        return a / b;
+    } catch (error) {
+        console.error("Error:", error.message);
+        return null;
+    }
+}

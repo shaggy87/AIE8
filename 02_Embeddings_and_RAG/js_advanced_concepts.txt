@@ -1,0 +1,343 @@
+JavaScript Advanced Concepts - Technical Reference
+
+ES6+ Module System
+JavaScript modules allow you to organize code into separate files and import/export functionality.
+
+Named Exports:
+// math.js
+export const PI = 3.14159;
+export function add(a, b) {
+    return a + b;
+}
+export { multiply, divide };
+
+// main.js
+import { PI, add } from './math.js';
+import * as math from './math.js';
+
+Default Exports:
+// calculator.js
+export default class Calculator {
+    add(a, b) { return a + b; }
+    subtract(a, b) { return a - b; }
+}
+
+// main.js
+import Calculator from './calculator.js';
+
+Advanced Object Patterns
+
+Object.create():
+const animal = {
+    speak() {
+        console.log(`${this.name} makes a sound`);
+    }
+};
+
+const dog = Object.create(animal);
+dog.name = "Rex";
+dog.bark = function() {
+    console.log("Woof!");
+};
+
+Prototype Chain:
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.greet = function() {
+    return `Hello, I'm ${this.name}`;
+};
+
+const john = new Person("John");
+
+Classes and Inheritance:
+class Vehicle {
+    constructor(make, model) {
+        this.make = make;
+        this.model = model;
+    }
+
+    start() {
+        return `${this.make} ${this.model} started`;
+    }
+}
+
+class Car extends Vehicle {
+    constructor(make, model, doors) {
+        super(make, model);
+        this.doors = doors;
+    }
+
+    honk() {
+        return "Beep beep!";
+    }
+}
+
+Advanced Array Methods
+
+flatMap():
+const words = ["hello world", "foo bar"];
+const letters = words.flatMap(word => word.split(' '));
+// ["hello", "world", "foo", "bar"]
+
+reduce() Advanced Usage:
+const data = [
+    { category: 'A', value: 10 },
+    { category: 'B', value: 20 },
+    { category: 'A', value: 30 }
+];
+
+const grouped = data.reduce((acc, item) => {
+    if (!acc[item.category]) acc[item.category] = [];
+    acc[item.category].push(item.value);
+    return acc;
+}, {});
+
+Memory Management and Performance
+
+WeakMap and WeakSet:
+const privateData = new WeakMap();
+
+class SecureClass {
+    constructor(secret) {
+        privateData.set(this, { secret });
+    }
+
+    getSecret() {
+        return privateData.get(this).secret;
+    }
+}
+
+Generators and Iterators:
+function* numberGenerator() {
+    let num = 0;
+    while (true) {
+        yield num++;
+    }
+}
+
+const gen = numberGenerator();
+console.log(gen.next().value); // 0
+console.log(gen.next().value); // 1
+
+Custom Iterators:
+class Range {
+    constructor(start, end) {
+        this.start = start;
+        this.end = end;
+    }
+
+    *[Symbol.iterator]() {
+        for (let i = this.start; i <= this.end; i++) {
+            yield i;
+        }
+    }
+}
+
+for (let num of new Range(1, 5)) {
+    console.log(num); // 1, 2, 3, 4, 5
+}
+
+Advanced Async Patterns
+
+Async Generators:
+async function* fetchPages(urls) {
+    for (const url of urls) {
+        const response = await fetch(url);
+        yield await response.json();
+    }
+}
+
+for await (const page of fetchPages(urls)) {
+    console.log(page);
+}
+
+Promise Combinators:
+// Promise.allSettled() - Wait for all to complete
+const results = await Promise.allSettled([
+    fetch('/api/data1'),
+    fetch('/api/data2'),
+    fetch('/api/data3')
+]);
+
+// Promise.any() - First successful result
+const firstSuccess = await Promise.any([
+    fetch('/api/primary'),
+    fetch('/api/backup1'),
+    fetch('/api/backup2')
+]);
+
+Advanced Error Handling:
+class CustomError extends Error {
+    constructor(message, code) {
+        super(message);
+        this.name = 'CustomError';
+        this.code = code;
+    }
+}
+
+async function robustApiCall(url, retries = 3) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new CustomError(`HTTP ${response.status}`, response.status);
+            }
+            return await response.json();
+        } catch (error) {
+            if (i === retries - 1) throw error;
+            await new Promise(resolve => setTimeout(resolve, 2 ** i * 1000));
+        }
+    }
+}
+
+Functional Programming Concepts
+
+Higher-Order Function Composition:
+const pipe = (...functions) => (value) =>
+    functions.reduce((acc, fn) => fn(acc), value);
+
+const addOne = x => x + 1;
+const double = x => x * 2;
+const square = x => x * x;
+
+const transform = pipe(addOne, double, square);
+console.log(transform(3)); // ((3 + 1) * 2)² = 64
+
+Currying:
+const curry = (fn) => {
+    return function curried(...args) {
+        if (args.length >= fn.length) {
+            return fn.apply(this, args);
+        }
+        return (...nextArgs) => curried(...args, ...nextArgs);
+    };
+};
+
+const add = curry((a, b, c) => a + b + c);
+const addFive = add(5);
+const addFiveAndTwo = addFive(2);
+console.log(addFiveAndTwo(3)); // 10
+
+Memoization:
+const memoize = (fn) => {
+    const cache = new Map();
+    return (...args) => {
+        const key = JSON.stringify(args);
+        if (cache.has(key)) {
+            return cache.get(key);
+        }
+        const result = fn(...args);
+        cache.set(key, result);
+        return result;
+    };
+};
+
+const fibonacci = memoize((n) => {
+    if (n < 2) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+});
+
+Advanced DOM and Browser APIs
+
+Intersection Observer:
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+});
+
+document.querySelectorAll('.lazy').forEach(el => {
+    observer.observe(el);
+});
+
+Web Workers:
+// main.js
+const worker = new Worker('worker.js');
+worker.postMessage({ data: largeDataSet });
+worker.onmessage = (e) => {
+    console.log('Result:', e.data);
+};
+
+// worker.js
+self.onmessage = (e) => {
+    const result = heavyComputation(e.data);
+    self.postMessage(result);
+};
+
+Service Workers:
+// sw.js
+self.addEventListener('fetch', (event) => {
+    event.respondWith(
+        caches.match(event.request)
+            .then(response => response || fetch(event.request))
+    );
+});
+
+Advanced Testing Patterns
+
+Property-Based Testing:
+function quickCheck(property, generator, iterations = 100) {
+    for (let i = 0; i < iterations; i++) {
+        const input = generator();
+        if (!property(input)) {
+            return { passed: false, counterExample: input };
+        }
+    }
+    return { passed: true };
+}
+
+// Test that array reverse is its own inverse
+const reverseProperty = (arr) => {
+    const reversed = arr.slice().reverse().reverse();
+    return JSON.stringify(arr) === JSON.stringify(reversed);
+};
+
+Performance Optimization Techniques
+
+Debouncing and Throttling:
+const debounce = (func, wait) => {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+};
+
+const throttle = (func, limit) => {
+    let inThrottle;
+    return (...args) => {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+};
+
+Virtual DOM Concepts:
+class VirtualNode {
+    constructor(tag, props, children) {
+        this.tag = tag;
+        this.props = props;
+        this.children = children;
+    }
+
+    render() {
+        const element = document.createElement(this.tag);
+        Object.assign(element, this.props);
+
+        this.children.forEach(child => {
+            if (typeof child === 'string') {
+                element.appendChild(document.createTextNode(child));
+            } else {
+                element.appendChild(child.render());
+            }
+        });
+
+        return element;
+    }
+}

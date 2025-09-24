@@ -1,0 +1,120 @@
+JavaScript Basics - Programming Guide
+
+Introduction to JavaScript
+JavaScript is a high-level, interpreted programming language that is widely used for web development. It was created by Brendan Eich in 1995 and has since become one of the most popular programming languages in the world.
+
+Variables and Data Types
+JavaScript supports several data types including numbers, strings, booleans, objects, and arrays. Variables can be declared using var, let, or const keywords.
+
+Example:
+let name = "John";
+const age = 25;
+var isStudent = true;
+
+Functions
+Functions are reusable blocks of code that perform specific tasks. They can be declared using the function keyword or as arrow functions.
+
+Example:
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+const add = (a, b) => a + b;
+
+Objects and Arrays
+Objects are collections of key-value pairs, while arrays are ordered lists of values.
+
+Example:
+const person = {
+    name: "Alice",
+    age: 30,
+    city: "New York"
+};
+
+const fruits = ["apple", "banana", "orange"];
+
+Control Structures
+JavaScript provides various control structures including if statements, loops, and switch statements.
+
+Example:
+if (age >= 18) {
+    console.log("Adult");
+} else {
+    console.log("Minor");
+}
+
+for (let i = 0; i < 5; i++) {
+    console.log(i);
+}
+
+Event Handling
+JavaScript can respond to user interactions through event handlers.
+
+Example:
+button.addEventListener("click", function() {
+    alert("Button clicked!");
+});
+
+DOM Manipulation
+The Document Object Model (DOM) allows JavaScript to interact with HTML elements.
+
+Example:
+document.getElementById("myElement").innerHTML = "New content";
+
+Asynchronous Programming
+JavaScript supports asynchronous programming through callbacks, promises, and async/await.
+
+Example:
+setTimeout(() => {
+    console.log("This runs after 2 seconds");
+}, 2000);
+
+Promise Example:
+fetch('https://api.example.com/data')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+
+Error Handling
+Use try-catch blocks to handle errors gracefully.
+
+Example:
+try {
+    let result = riskyOperation();
+    console.log(result);
+} catch (error) {
+    console.error("An error occurred:", error.message);
+}
+
+Best Practices
+1. Use meaningful variable names
+2. Keep functions small and focused
+3. Comment your code
+4. Use strict mode ("use strict";)
+5. Avoid global variables
+6. Use consistent indentation
+7. Handle errors appropriately
+
+Common JavaScript Methods
+String Methods:
+- length: Returns the length of a string
+- toUpperCase(): Converts to uppercase
+- toLowerCase(): Converts to lowercase
+- substring(): Extracts characters between two indices
+
+Array Methods:
+- push(): Adds elements to the end
+- pop(): Removes the last element
+- slice(): Returns a shallow copy of a portion
+- map(): Creates a new array with transformed elements
+- filter(): Creates a new array with filtered elements
+
+ES6 Features
+Modern JavaScript includes many new features:
+- Template literals: `Hello, ${name}!`
+- Destructuring: const {name, age} = person;
+- Spread operator: [...array1, ...array2]
+- Default parameters: function greet(name = "World") {}
+
+Conclusion
+This covers the fundamental concepts of JavaScript programming. Practice these concepts to build a strong foundation in JavaScript development.
